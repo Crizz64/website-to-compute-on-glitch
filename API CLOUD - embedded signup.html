@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Embedded Signup</title>
+</head>
+<body>
+  <div id="fb-root"></div>
+  <button onclick="launchWhatsAppSignup()" style="background-color: #1877f2; border: 0; border-radius: 4px; color: #fff; cursor: pointer; font-family: Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; height: 40px; padding: 0 24px;">Login with Facebook</button>
+  <p>Session info response:</p>
+  <pre id="session-info-response"></pre>
+  </br>
+  <p>SDK response:</p>
+  <pre id="sdk-response"></pre>
+
+  <script>
+    window.addEventListener('message', (event) => {
+      if (event.origin !== "https://www.facebook.com" && event.origin !== "https://web.facebook.com") {
+        return;
+      }
+      try {
+        const data = JSON.parse(event.data);
+        if (data.type === 'WA_EMBEDDED_SIGNUP') {
+          // if user finishes the Embedded Signup flow
+          if (data.event === 'FINISH') {
+            const {phone_number_id, waba_id} = data.data;
+            console.log("Phone number ID ", phone_number_id, " WhatsApp business account ID ", waba_id);
+            // if user cancels the Embedded Signup flow
+          } else if (data.event === 'CANCEL') {
+            const {current_step} = data.data;
+            console.warn("Cancel at ", current_step);
+            // if user reports an error during the Embedded Signup flow
+          } else if (data.event === 'ERROR') {
+            const {error_message} = data.data;
+            console.error("error ", error_message);
+          }
+        }
+        document.getElementById("session-info-response").textContent = JSON.stringify(data, null, 2);
+      } catch {
+        console.log('Non JSON Responses', event.data);
+      }
+    });
+  </script>
+
+  <script>
+    const fbLoginCallback = (response) => {
+      if (response.authResponse) {
+        const code = response.authResponse.code;
+        // The returned code must be transmitted to your backend first and then
+        // perform a server-to-server call from there to our servers for an access token.
+      }
+      document.getElementById("sdk-response").textContent = JSON.stringify(response, null, 2);
+    }
+
+    const launchWhatsAppSignup = () => {
+      // Launch Facebook login
+      FB.login(fbLoginCallback, {
+        config_id: '1121327986275988', // configuration ID goes here
+        response_type: 'code', // must be set to 'code' for System User access token
+        override_default_response_type: true, // when true, any response types passed in the "response_type" will take precedence over the default types
+        extras: {"version":"v3","setup":{"business":{"id":null,"name":null,"email":null,"phone":{"code":null,"number":null},"website":null,"address":{"streetAddress1":null,"streetAddress2":null,"city":null,"state":null,"zipPostal":null,"country":null},"timezone":null},"phone":{"displayName":null,"category":null,"description":null},"preVerifiedPhone":{"ids":null},"solutionID":null,"whatsAppBusinessAccount":{"ids":null}}}
+      });
+    }
+  </script>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '1444144049790387',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v23.0'
+      });
+    };
+  </script>
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js">
+  </script>
+</body>
+</html>
