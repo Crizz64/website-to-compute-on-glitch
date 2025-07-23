@@ -52,15 +52,19 @@
       document.getElementById("sdk-response").textContent = JSON.stringify(response, null, 2);
     }
 
-    const launchWhatsAppSignup = () => {
-      // Launch Facebook login
-      FB.login(fbLoginCallback, {
-        config_id: '1121327986275988', // configuration ID goes here
-        response_type: 'code', // must be set to 'code' for System User access token
-        override_default_response_type: true, // when true, any response types passed in the "response_type" will take precedence over the default types
-        extras: {"version":"v3","setup":{"business":{"id":null,"name":null,"email":null,"phone":{"code":null,"number":null},"website":null,"address":{"streetAddress1":null,"streetAddress2":null,"city":null,"state":null,"zipPostal":null,"country":null},"timezone":null},"phone":{"displayName":null,"category":null,"description":null},"preVerifiedPhone":{"ids":null},"solutionID":null,"whatsAppBusinessAccount":{"ids":null}}}
-      });
+   // Launch method and callback registration
+const launchWhatsAppSignup = () => {
+  FB.login(fbLoginCallback, {
+    config_id: '<CONFIGURATION_ID>', // your configuration ID goes here
+    response_type: 'code',
+    override_default_response_type: true,
+    extras: {
+      setup: {},
+      featureType: 'whatsapp_business_app_onboarding', // set to 'whatsapp_business_app_onboarding'
+      sessionInfoVersion: '3'
     }
+  });
+}
   </script>
 
   <script>
