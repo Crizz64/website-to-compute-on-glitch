@@ -1,7 +1,7 @@
 /* A set of default styles */
 :root {
   /* Generic sizing for the page */
-  --wrapper-height: 100vh;
+  --wrapper-height: 40vh;
 
   /* Fonts for different elements */
   --font-family: sans-serif;
@@ -32,6 +32,20 @@ body {
   font-size:large;
 }
 /* Page structure */
+
+#Empresa {
+  margin-top: 3rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  image-rendering: optimizeQuality;
+}
+
+
 .wrapper {
   min-height: var(--wrapper-height);
   display: grid;
