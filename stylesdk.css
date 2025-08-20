@@ -1,0 +1,19 @@
+body {
+      background-color: #0000ff; /* Fondo azul */
+      color: #fff; /* Color de texto blanco */
+      font-size: 16px; /* Tamaño de fuente */
+    }
+
+    #status {
+      border: 5px solid #000; /* Borde de 5 píxeles */
+      padding: 20px;
+      background-color: #fff; /* Fondo blanco */
+      color: #000; /* Color de texto negro */
+    }
+
+    .fb-login-button {
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #4267B2; /* Color de fondo de Facebook */
+      color: #fff; /* Color de texto blanco */
+    }
