@@ -2,6 +2,11 @@
       background-color: #4343ef; /* Fondo azul */
       color: #fff; /* Color de texto blanco */
       font-size: 16px; /* Tamaño de fuente */
+      margin-left: 30%;
+      margin-right: 30%;
+        padding: 20px;
+        text-align: center; /* Centrar el texto */
+        
     }
     #status {
       border: 5px solid #000; /* Borde de 5 píxeles */
